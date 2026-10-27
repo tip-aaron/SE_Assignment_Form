@@ -444,4 +444,104 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     restoreFormFromLocalStorage();
+
+
+    // ==========================================
+// SUPPORTING FORM 2: STREAMLINED PATIENT SEARCH
+// ==========================================
+
+const searchForm = document.getElementById('patient-search-form');
+const resultsBody = document.getElementById('search-results-body');
+const resultsCount = document.getElementById('results-count');
+
+const mockPatients = [
+    { id: 'P-1001', givenName: 'Maria', familyName: 'Gonzales', dob: '1992-05-14', sex: 'female', classification: 'company', visitDate: '2026-10-25', queueStatus: 'waiting' },
+    { id: 'P-1002', givenName: 'Juan', familyName: 'Dela Cruz', dob: '1985-11-03', sex: 'male', classification: 'out-of-pocket', visitDate: '2026-10-20', queueStatus: 'completed' },
+    { id: 'P-1003', givenName: 'Anna', familyName: 'Santos', dob: '1998-01-22', sex: 'female', classification: 'walk-in', visitDate: '2026-10-27', queueStatus: 'in-consultation' },
+    { id: 'P-1004', givenName: 'Carlos', familyName: 'Reyes', dob: '1976-08-19', sex: 'male', classification: 'company', visitDate: '2026-10-15', queueStatus: 'in-lab' },
+    { id: 'P-1005', givenName: 'Elena', familyName: 'Bautista', dob: '1960-12-05', sex: 'female', classification: 'walk-in', visitDate: '2026-09-10', queueStatus: 'completed' },
+    { id: 'P-1006', givenName: 'Mark', familyName: 'Gonzales', dob: '2001-03-30', sex: 'male', classification: 'out-of-pocket', visitDate: '2026-10-26', queueStatus: 'waiting' },
+    { id: 'P-1007', givenName: 'Sophia', familyName: 'Mendoza', dob: '1995-07-11', sex: 'female', classification: 'company', visitDate: '2026-10-01', queueStatus: 'cancelled' }
+];
+
+function renderSearchResults(patients) {
+    if (!resultsBody || !resultsCount) return;
+
+    resultsCount.textContent = patients.length.toString();
+
+    if (patients.length === 0) {
+        resultsBody.innerHTML = `
+            <tr>
+                <td colspan="7" style="text-align: center; padding: 16px; color: #64748b;">
+                    No patients found matching your search and filter criteria.
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    resultsBody.innerHTML = patients.map(p => `
+        <tr style="border-bottom: 1px solid #e2e8f0;">
+            <td style="padding: 10px; font-weight: 600;">${p.id}</td>
+            <td style="padding: 10px;">${p.givenName} ${p.familyName}</td>
+            <td style="padding: 10px;">${p.dob}</td>
+            <td style="padding: 10px; text-transform: capitalize;">${p.sex}</td>
+            <td style="padding: 10px; text-transform: capitalize;">${p.classification}</td>
+            <td style="padding: 10px;">${p.visitDate}</td>
+            <td style="padding: 10px; text-transform: capitalize;">${p.queueStatus.replace('-', ' ')}</td>
+        </tr>
+    `).join('');
+}
+
+function filterPatients() {
+    if (!searchForm) return;
+
+    const keyword = document.getElementById('search-keyword')?.value.trim().toLowerCase() || '';
+    const sex = document.getElementById('search-sex')?.value || '';
+    const classification = document.getElementById('search-classification')?.value || '';
+    const queueStatus = document.getElementById('queue-status')?.value || '';
+    const visitFrom = document.getElementById('visit-date-from')?.value || '';
+    const visitTo = document.getElementById('visit-date-to')?.value || '';
+
+    const filtered = mockPatients.filter(patient => {
+        // Keyword Search (Name or Patient ID)
+        if (keyword) {
+            const fullName = `${patient.givenName} ${patient.familyName}`.toLowerCase();
+            const patientId = patient.id.toLowerCase();
+            if (!fullName.includes(keyword) && !patientId.includes(keyword)) {
+                return false;
+            }
+        }
+
+        if (sex && patient.sex !== sex) return false;
+        if (classification && patient.classification !== classification) return false;
+        if (queueStatus && patient.queueStatus !== queueStatus) return false;
+        if (visitFrom && patient.visitDate < visitFrom) return false;
+        if (visitTo && patient.visitDate > visitTo) return false;
+
+        return true;
+    });
+
+    renderSearchResults(filtered);
+}
+
+if (searchForm) {
+    // Form Submit Search
+    searchForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        filterPatients();
+    });
+
+    // Form Reset Search
+    searchForm.addEventListener('reset', () => {
+        setTimeout(filterPatients, 0);
+    });
+
+    // Real-time filtering as user types or changes dropdowns
+    searchForm.addEventListener('input', filterPatients);
+    searchForm.addEventListener('change', filterPatients);
+
+    // Initial load
+    filterPatients();
+}
 });

@@ -318,7 +318,8 @@
                 <div class="form-step" id="step-5" role="region" aria-labelledby="step-5-title">
                     <fieldset>
                         <legend id="step-5-title">Registration Summary</legend>
-                        <p class="summary-success-message">Patient registered successfully! Below is the vertical summary of the submitted information:</p>
+                        <p class="summary-success-message">Patient registered successfully! Below is the vertical
+                            summary of the submitted information:</p>
                         <div class="table-container">
                             <table class="summary-table" role="table">
                                 <tbody id="summary-table-body">
@@ -334,9 +335,80 @@
                 </div>
             </form>
         </section>
-
         <section id="supporting-form">
-            <h2>Supporting Form</h2>
+            <h2 id="search-form-title">Supporting Form 2 &lpar;Patient Search&rpar;</h2>
+
+            <form id="patient-search-form" class="search-filter-form" aria-labelledby="search-form-title">
+                <!-- Row 1: Search Bar -->
+                <div class="search-bar-row">
+                    <input type="search" id="search-keyword" name="searchKeyword"
+                        placeholder="Search by patient name or ID (e.g. Maria, P-1001)..." autocomplete="off">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                    <button type="reset" class="btn btn-secondary">Clear Filters</button>
+                </div>
+
+                <!-- Row 2: Dropdown Filters -->
+                <div class="filter-controls-row">
+                    <select id="search-sex" name="searchSex" aria-label="Filter by Sex">
+                        <option value="">All Sexes</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+
+                    <select id="search-classification" name="searchClassification"
+                        aria-label="Filter by Visit Classification">
+                        <option value="">All Classifications</option>
+                        <option value="company">Company</option>
+                        <option value="out-of-pocket">Out-of-pocket</option>
+                        <option value="walk-in">Walk-in</option>
+                    </select>
+
+                    <select id="queue-status" name="queueStatus" aria-label="Filter by Queue Status">
+                        <option value="">All Queue Statuses</option>
+                        <option value="waiting">Waiting</option>
+                        <option value="in-consultation">In Consultation</option>
+                        <option value="in-lab">In Laboratory</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+
+                <!-- Row 3: Date Range Filters -->
+                <div class="filter-date-row">
+                    <div class="filter-date-group">
+                        <label for="visit-date-from">From:</label>
+                        <input type="date" id="visit-date-from" name="visitDateFrom" aria-label="Visit Date From">
+                    </div>
+
+                    <div class="filter-date-group">
+                        <label for="visit-date-to">To:</label>
+                        <input type="date" id="visit-date-to" name="visitDateTo" aria-label="Visit Date To">
+                    </div>
+                </div>
+            </form>
+
+            <!-- Search Results Section -->
+            <div id="search-results-section" class="search-results-section">
+                <h3>Search Results &lpar;<span id="results-count">0</span>&rpar;</h3>
+                <div class="table-container">
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Patient ID</th>
+                                <th>Name</th>
+                                <th>DOB</th>
+                                <th>Sex</th>
+                                <th>Classification</th>
+                                <th>Visit Date</th>
+                                <th>Queue Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="search-results-body">
+                            <!-- Dynamic search results -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </section>
     </main>
 </body>
