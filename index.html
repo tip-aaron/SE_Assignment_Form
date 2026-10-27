@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SE Forms</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="index.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <a href="#main-form">Main Form</a>
+        <a href="#supporting-form">Supporting Form</a>
+    </header>
+    <main>
+        <h1>SE Forms</h1>
+        <section id="main-form">
+            <h2 id="patient-form-title">Main Form &lpar;Patient Registration&rpar;</h2>
+
+            <!-- Step-Based Multi-Step Patient Registration Form -->
+            <form id="patient-form" name="patientRegistration" aria-labelledby="patient-form-title"
+                aria-describedby="patient-form-desc" novalidate>
+                <p id="patient-form-desc" class="form-desc">
+                    Register a new patient at reception by completing all four steps: Full Name, Personal Details,
+                    Contact & Address, and Visit Details & Documents. Fields marked with an asterisk &lpar;<span
+                        class="required-mark" aria-hidden="true">*</span>&rpar; are required.
+                </p>
+
+                <!-- Hidden Generated Field -->
+                <input type="hidden" id="patient-id" name="patientId" value="">
+
+                <!-- Step Indicator Progress Bar -->
+                <nav class="step-indicator-wrapper" aria-label="Registration Progress">
+                    <ol class="step-indicator">
+                        <li class="step-item active" data-step="1">
+                            <span class="step-badge">1</span>
+                            <span class="step-title">Full Name</span>
+                        </li>
+                        <li class="step-item" data-step="2">
+                            <span class="step-badge">2</span>
+                            <span class="step-title">Personal Details</span>
+                        </li>
+                        <li class="step-item" data-step="3">
+                            <span class="step-badge">3</span>
+                            <span class="step-title">Contact &amp; Address</span>
+                        </li>
+                        <li class="step-item" data-step="4">
+                            <span class="step-badge">4</span>
+                            <span class="step-title">Visit Details</span>
+                        </li>
+                        <li class="step-item" data-step="5">
+                            <span class="step-badge">5</span>
+                            <span class="step-title">Summary</span>
+                        </li>
+                    </ol>
+                </nav>
+
+                <!-- STEP 1: Full Name -->
+                <div class="form-step active" id="step-1" role="region" aria-labelledby="step-1-title">
+                    <fieldset>
+                        <legend id="step-1-title">Full name</legend>
+
+                        <div class="field">
+                            <label for="given-name">First name <span class="required-mark"
+                                    aria-hidden="true">*</span></label>
+                            <input type="text" id="given-name" name="givenName" autocomplete="off"
+                                autocapitalize="words" autocorrect="off" spellcheck="false" required minlength="2"
+                                maxlength="50" placeholder="e.g. Maria"
+                                aria-describedby="given-name-hint given-name-error">
+                            <small id="given-name-hint" class="field-hint">Required. 2 to 50 characters. Letters,
+                                spaces, hyphens, and apostrophes only.</small>
+                            <small id="given-name-error" class="field-error" aria-live="polite"></small>
+                        </div>
+
+                        <div class="field">
+                            <label for="middle-name">Middle name</label>
+                            <input type="text" id="middle-name" name="middleName" autocomplete="off"
+                                autocapitalize="words" autocorrect="off" spellcheck="false" maxlength="50"
+                                placeholder="e.g. Edna" aria-describedby="middle-name-hint middle-name-error">
+                            <small id="middle-name-hint" class="field-hint">Optional. Up to 50 characters.</small>
+                            <small id="middle-name-error" class="field-error" aria-live="polite"></small>
+                        </div>
+
+                        <div class="field">
+                            <label for="family-name">Last name <span class="required-mark"
+                                    aria-hidden="true">*</span></label>
+                            <input type="text" id="family-name" name="familyName" autocomplete="off"
+                                autocapitalize="words" autocorrect="off" spellcheck="false" required minlength="2"
+                                maxlength="50" placeholder="e.g. Gonzales"
+                                aria-describedby="family-name-hint family-name-error">
+                            <small id="family-name-hint" class="field-hint">Required. 2 to 50 characters. Letters,
+                                spaces, hyphens, and apostrophes only.</small>
+                            <small id="family-name-error" class="field-error" aria-live="polite"></small>
+                        </div>
+                    </fieldset>
+
+                    <div class="button-group">
+                        <button type="button" class="btn btn-primary btn-next">Next Step &rarr;</button>
+                    </div>
+                </div>
+
+                <!-- STEP 2: Personal Details -->
+                <div class="form-step" id="step-2" role="region" aria-labelledby="step-2-title">
+                    <fieldset>
+                        <legend id="step-2-title">Personal details</legend>
+
+                        <div class="field">
+                            <label for="birth-date">Date of birth <span class="required-mark"
+                                    aria-hidden="true">*</span></label>
+                            <input type="date" id="birth-date" name="birthDate" autocomplete="off" required
+                                min="1900-01-01" aria-describedby="birth-date-hint birth-date-error">
+                            <small id="birth-date-hint" class="field-hint">Required. Must be between 1900-01-01 and
+                                today (cannot be a future date).</small>
+                            <small id="birth-date-error" class="field-error" aria-live="polite"></small>
+                        </div>
+
+                        <fieldset class="field" aria-describedby="sex-hint sex-error">
+                            <legend>Sex <span class="required-mark" aria-hidden="true">*</span></legend>
+                            <div class="option-group">
+                                <div class="option">
+                                    <input type="radio" id="sex-male" name="sex" value="male" required>
+                                    <label for="sex-male">Male</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" id="sex-female" name="sex" value="female" required>
+                                    <label for="sex-female">Female</label>
+                                </div>
+                            </div>
+                            <small id="sex-hint" class="field-hint">Required. Select one option.</small>
+                            <small id="sex-error" class="field-error" aria-live="polite"></small>
+                        </fieldset>
+
+                        <div class="field">
+                            <label for="civil-status">Civil status <span class="required-mark"
+                                    aria-hidden="true">*</span></label>
+                            <select id="civil-status" name="civilStatus" autocomplete="off" required
+                                aria-describedby="civil-status-hint civil-status-error">
+                                <option value="" selected disabled>Select civil status</option>
+                                <option value="single">Single</option>
+                                <option value="married">Married</option>
+                                <option value="widowed">Widowed</option>
+                                <option value="legally-separated">Legally separated</option>
+                                <option value="annulled">Annulled</option>
+                            </select>
+                            <small id="civil-status-hint" class="field-hint">Required. Please select an option from the
+                                list.</small>
+                            <small id="civil-status-error" class="field-error" aria-live="polite"></small>
+                        </div>
+                    </fieldset>
+
+                    <div class="button-group">
+                        <button type="button" class="btn btn-secondary btn-prev">&larr; Previous</button>
+                        <button type="button" class="btn btn-primary btn-next">Next Step &rarr;</button>
+                    </div>
+                </div>
+
+                <!-- STEP 3: Contact & Address -->
+                <div class="form-step" id="step-3" role="region" aria-labelledby="step-3-title">
+                    <fieldset>
+                        <legend id="step-3-title">Contact &amp; Address</legend>
+
+                        <div class="field">
+                            <label for="contact-number">Contact number <span class="required-mark"
+                                    aria-hidden="true">*</span></label>
+                            <input type="tel" id="contact-number" name="contactNumber" inputmode="tel"
+                                autocomplete="off" required minlength="11" maxlength="13" pattern="(09|\+639)\d{9}"
+                                placeholder="e.g. 09123456789"
+                                aria-describedby="contact-number-hint contact-number-error">
+                            <small id="contact-number-hint" class="field-hint">Required. 11 to 13 characters. Format:
+                                09XXXXXXXXX or +639XXXXXXXXX.</small>
+                            <small id="contact-number-error" class="field-error" aria-live="polite"></small>
+                        </div>
+
+                        <div class="field">
+                            <label for="email">Email address <span class="required-mark"
+                                    aria-hidden="true">*</span></label>
+                            <input type="email" id="email" name="email" autocomplete="off" required
+                                placeholder="e.g. maria.gonzales@example.com" aria-describedby="email-hint email-error">
+                            <small id="email-hint" class="field-hint">Required. Must be a valid email format (e.g.
+                                name@example.com).</small>
+                            <small id="email-error" class="field-error" aria-live="polite"></small>
+                        </div>
+
+                        <div class="field field-full">
+                            <label for="home-address">Home address <span class="required-mark"
+                                    aria-hidden="true">*</span></label>
+                            <textarea id="home-address" name="homeAddress" rows="3" required minlength="10"
+                                maxlength="250" placeholder="House/Unit No., Street, Village/Barangay, City, Province"
+                                aria-describedby="home-address-hint home-address-error"></textarea>
+                            <small id="home-address-hint" class="field-hint">Required. 10 to 250 characters. Include
+                                street, barangay, city, and province.</small>
+                            <small id="home-address-error" class="field-error" aria-live="polite"></small>
+                        </div>
+                    </fieldset>
+
+                    <div class="button-group">
+                        <button type="button" class="btn btn-secondary btn-prev">&larr; Previous</button>
+                        <button type="button" class="btn btn-primary btn-next">Next Step &rarr;</button>
+                    </div>
+                </div>
+
+                <!-- STEP 4: Visit Details & Documents -->
+                <div class="form-step" id="step-4" role="region" aria-labelledby="step-4-title">
+                    <fieldset>
+                        <legend id="step-4-title">Visit details &amp; Documents</legend>
+
+                        <fieldset class="field field-full"
+                            aria-describedby="visit-classification-hint visit-classification-error">
+                            <legend>Visit classification <span class="required-mark" aria-hidden="true">*</span>
+                            </legend>
+                            <div class="option-group">
+                                <div class="option">
+                                    <input type="radio" id="visit-company" name="visitClassification" value="company"
+                                        required>
+                                    <label for="visit-company">Company</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" id="visit-out-of-pocket" name="visitClassification"
+                                        value="out-of-pocket">
+                                    <label for="visit-out-of-pocket">Out-of-pocket</label>
+                                </div>
+                                <div class="option">
+                                    <input type="radio" id="visit-walk-in" name="visitClassification" value="walk-in">
+                                    <label for="visit-walk-in">Walk-in</label>
+                                </div>
+                            </div>
+                            <small id="visit-classification-hint" class="field-hint">Required. Choose one classification
+                                type.</small>
+                            <small id="visit-classification-error" class="field-error" aria-live="polite"></small>
+                        </fieldset>
+
+                        <div class="field field-full" id="company-name-group" style="display: none;"
+                            data-conditional="visitClassification:company">
+                            <label for="company-name">Company name <span class="required-mark"
+                                    aria-hidden="true">*</span></label>
+                            <select id="company-name" name="companyName"
+                                aria-describedby="company-name-hint company-name-error">
+                                <option value="" selected disabled>Select account company</option>
+                                <option value="acme-corp">Acme Corporation</option>
+                                <option value="globex">Globex Health</option>
+                                <option value="stark-ind">Stark Industries</option>
+                                <option value="initech">Initech LLC</option>
+                            </select>
+                            <small id="company-name-hint" class="field-hint">Required when Visit Classification is set
+                                to Company.</small>
+                            <small id="company-name-error" class="field-error" aria-live="polite"></small>
+                        </div>
+
+                        <fieldset class="field field-full" aria-describedby="routing-hint routing-error">
+                            <legend>Department routing</legend>
+                            <div class="option-group">
+                                <div class="option">
+                                    <input type="checkbox" id="route-nurse" name="departmentRouting"
+                                        value="nurse-station">
+                                    <label for="route-nurse">Nurse Station</label>
+                                </div>
+                                <div class="option">
+                                    <input type="checkbox" id="route-lab" name="departmentRouting" value="laboratory">
+                                    <label for="route-lab">Laboratory</label>
+                                </div>
+                                <div class="option">
+                                    <input type="checkbox" id="route-consultation" name="departmentRouting"
+                                        value="consultation">
+                                    <label for="route-consultation">Consultation</label>
+                                </div>
+                            </div>
+                            <small id="routing-hint" class="field-hint">Optional. Select all applicable departments to
+                                route to.</small>
+                            <small id="routing-error" class="field-error" aria-live="polite"></small>
+                        </fieldset>
+
+                        <div class="field field-full">
+                            <div class="option">
+                                <input type="checkbox" id="paper-form-received" name="paperFormReceived" value="yes">
+                                <label for="paper-form-received">Paper registration form received</label>
+                            </div>
+                            <small id="paper-form-received-hint" class="field-hint">Optional. Check if physical
+                                registration form was received.</small>
+                        </div>
+
+                        <div class="field field-full" id="file-upload-group" style="display: none;">
+                            <label for="id-scan">Upload scan of paper registration or ID</label>
+                            <div class="drop-zone" id="drop-zone">
+                                <input type="file" id="id-scan" name="idScan" accept=".pdf,.png,.jpg,.jpeg"
+                                    class="drop-zone-input" aria-describedby="id-scan-hint id-scan-error">
+                                <div class="drop-zone-content">
+                                    <svg class="drop-zone-icon" xmlns="http://www.w3.org/2000/svg" width="32"
+                                        height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                        <polyline points="17 8 12 3 7 8" />
+                                        <line x1="12" y1="3" x2="12" y2="15" />
+                                    </svg>
+                                    <p class="drop-zone-prompt">
+                                        <strong>Drag &amp; drop file here</strong> or <span
+                                            class="browse-link">browse</span>
+                                    </p>
+                                    <small id="id-scan-hint" class="field-hint">Optional. Accepted formats: PDF, PNG,
+                                        JPG, JPEG (Max size: 5MB).</small>
+                                    <span class="file-name-display" id="file-name-display"></span>
+                                </div>
+                            </div>
+                            <small id="id-scan-error" class="field-error" aria-live="polite"></small>
+                        </div>
+                    </fieldset>
+
+                    <div class="button-group">
+                        <button type="reset" class="btn btn-secondary">Clear Form</button>
+                        <button type="button" class="btn btn-secondary btn-prev">&larr; Previous</button>
+                        <button type="submit" class="btn btn-primary">Register Patient</button>
+                    </div>
+                </div>
+
+                <!-- STEP 5: Registration Summary & Confirmation -->
+                <div class="form-step" id="step-5" role="region" aria-labelledby="step-5-title">
+                    <fieldset>
+                        <legend id="step-5-title">Registration Summary</legend>
+                        <p class="summary-success-message">Patient registered successfully! Below is the vertical summary of the submitted information:</p>
+                        <div class="table-container">
+                            <table class="summary-table" role="table">
+                                <tbody id="summary-table-body">
+                                    <!-- Populated dynamically via JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </fieldset>
+
+                    <div class="button-group">
+                        <button type="button" class="btn btn-primary btn-fill-again">Fill Again</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <section id="supporting-form">
+            <h2>Supporting Form</h2>
+        </section>
+    </main>
+</body>
+
+</html>
