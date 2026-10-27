@@ -544,4 +544,82 @@ if (searchForm) {
     // Initial load
     filterPatients();
 }
+
+// ==========================================
+// SUPPORTING FORM 1: LOGIN FORM LOGIC
+// ==========================================
+
+const loginForm = document.getElementById('patient-login-form');
+const passwordInput = document.getElementById('login-password');
+const togglePasswordBtn = document.getElementById('toggle-password-btn');
+const forgotPasswordBtn = document.getElementById('forgot-password-btn');
+
+// Toggle Password Visibility Logic
+function setPasswordVisibility(isVisible) {
+    if (!passwordInput) return;
+
+    passwordInput.type = isVisible ? 'text' : 'password';
+
+    if (togglePasswordBtn) {
+        const eyeOpen = togglePasswordBtn.querySelector('.eye-open');
+        const eyeClosed = togglePasswordBtn.querySelector('.eye-closed');
+
+        if (eyeOpen && eyeClosed) {
+            eyeOpen.style.display = isVisible ? 'none' : 'block';
+            eyeClosed.style.display = isVisible ? 'block' : 'none';
+        }
+
+        togglePasswordBtn.setAttribute('aria-label', isVisible ? 'Hide password' : 'Show password');
+    }
+}
+
+// 1. Eye Icon Button Toggle Event
+if (togglePasswordBtn) {
+    togglePasswordBtn.addEventListener('click', () => {
+        const isCurrentlyVisible = passwordInput.type === 'text';
+        setPasswordVisibility(!isCurrentlyVisible);
+    });
+}
+
+// 3. Forgot Password Link Alert
+if (forgotPasswordBtn) {
+    forgotPasswordBtn.addEventListener('click', () => {
+        alert('went to forgot password!');
+    });
+}
+
+// 4. Form Submission
+if (loginForm) {
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // Validate basic inputs
+        const emailInput = document.getElementById('login-email');
+        let isValid = true;
+
+        if (emailInput && !emailInput.checkValidity()) {
+            showFieldError(emailInput);
+            isValid = false;
+        }
+
+        if (passwordInput && !passwordInput.checkValidity()) {
+            showFieldError(passwordInput);
+            isValid = false;
+        }
+
+        if (isValid) {
+            alert('Signed in successfully!');
+            loginForm.reset();
+            setPasswordVisibility(false);
+        }
+    });
+
+    loginForm.addEventListener('reset', () => {
+        setTimeout(() => {
+            setPasswordVisibility(false);
+            loginForm.querySelectorAll('.field-error').forEach(err => err.textContent = '');
+            loginForm.querySelectorAll('[aria-invalid]').forEach(el => el.removeAttribute('aria-invalid'));
+        }, 0);
+    });
+}
 });

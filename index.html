@@ -410,6 +410,62 @@
                 </div>
             </div>
         </section>
+
+        <section id="supporting-form-1">
+    <h2 id="login-form-title">Supporting Form 1 &lpar;Login Form&rpar;</h2>
+
+    <form id="patient-login-form" class="login-form" aria-labelledby="login-form-title" novalidate>
+        <fieldset>
+            <legend>Identity &amp; Access Management</legend>
+
+            <!-- 1. Email -->
+            <div class="field">
+                <label for="login-email">Email address <span class="required-mark" aria-hidden="true">*</span></label>
+                <input type="email" id="login-email" name="loginEmail" autocomplete="username" required
+                    placeholder="e.g. staff@clinic.com" aria-describedby="login-email-error">
+                <small id="login-email-error" class="field-error" aria-live="polite"></small>
+            </div>
+
+            <!-- 2. Password with 3. Eye Toggle inside input -->
+            <div class="field">
+                <label for="login-password">Password <span class="required-mark" aria-hidden="true">*</span></label>
+                <div class="password-wrapper">
+                    <input type="password" id="login-password" name="loginPassword" autocomplete="current-password" required
+                        placeholder="Enter your password" aria-describedby="login-password-error">
+                    <button type="button" id="toggle-password-btn" class="password-toggle-btn" aria-label="Show password" title="Show/Hide Password">
+                        <!-- Eye Icon (Default) -->
+                        <svg class="eye-icon eye-open" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                        <!-- Eye Off Icon (Hidden initially) -->
+                        <svg class="eye-icon eye-closed" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                            <line x1="1" y1="1" x2="23" y2="23"></line>
+                        </svg>
+                    </button>
+                </div>
+                <small id="login-password-error" class="field-error" aria-live="polite"></small>
+            </div>
+
+            <!-- 4. Remember this device & 5. Forgot Password Link -->
+            <div class="login-options-row">
+                <div class="option">
+                    <input type="checkbox" id="remember-device" name="rememberDevice" value="yes">
+                    <label for="remember-device">Remember this device</label>
+                </div>
+
+                <button type="button" id="forgot-password-btn" class="btn-link">Forgot password?</button>
+            </div>
+        </fieldset>
+
+        <!-- 6 & 7. Submit and Reset Buttons -->
+        <div class="button-group">
+            <button type="reset" class="btn btn-secondary">Clear Fields</button>
+            <button type="submit" class="btn btn-primary">Sign In</button>
+        </div>
+    </form>
+</section>
     </main>
 </body>
 
